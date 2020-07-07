@@ -27,20 +27,6 @@ menuIcon.addEventListener('click',() =>{
     navbar.classList.toggle("change");
 });
 
-
-function yelpDrink() {
-    
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        console.log(showPosition)
-      } 
-      function showPosition(position) {
-        console.log("Latitude: " + position.coords.latitude + " " +
-        "Longitude: " + position.coords.longitude);
-        
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-
 $("#heart").on("click", () => {
     storeCurrent(currentInd)
 });
@@ -112,26 +98,6 @@ function yelpDrink(latitude, longitude) {
                 "Authorization": "Bearer onVbl7k5cpGLZGH64zpFqN58hJoywsYCQdA1MeVe9Ef-M3hxHzaGB3ORpNWfMA7S3ux-c1tMVy5r51Qq34xLirIogtuifiIcT9RFeJzWj-23_UZctLUMbD4jqsP3XnYx",
             }
         }).then(function(response) {
-            console.log(response);
-            clearScreen();
-            initMap();
-        })
-      }
-}
-
-function yelpEat() {
-    
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        console.log(showPosition)
-      } 
-      function showPosition(position) {
-        console.log("Latitude: " + position.coords.latitude + " " +
-        "Longitude: " + position.coords.longitude);
-        
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=restaurant&latitude=" + latitude + "&longitude=" + longitude;
             currentYelpObj = response
             toggleMapBox()
         });
@@ -148,29 +114,6 @@ function yelpEat(latitude, longitude) {
                 "Authorization": "Bearer onVbl7k5cpGLZGH64zpFqN58hJoywsYCQdA1MeVe9Ef-M3hxHzaGB3ORpNWfMA7S3ux-c1tMVy5r51Qq34xLirIogtuifiIcT9RFeJzWj-23_UZctLUMbD4jqsP3XnYx",
             }
         }).then(function(response) {
-            console.log(response);
-            clearScreen();
-            initMap();
-        })
-      }
-}
-
-function initMap() {
-    var mapURL = "https://www.google.com/maps/embed/v1/view?zoom=15&center=" + latitude + "%2C" + longitude + "&key=AIzaSyDMTbiZBhMhP9h1zIfI3PWius0RL6YRBSU";
-    var mapDiv = $('<iframe>').width("100%").height("100%").attr("src", mapURL);
-    $('.container').append(mapDiv);
-    $('.map-view').html(mapURL);
-  }
-
-
-function clearScreen() {
-    $(".home-btns").remove();    
-    
-}
-
-$(document).on("click", "#food-btn", yelpEat);
-$(document).on("click", "#drink-btn", yelpDrink);
-
             currentYelpObj = response
             toggleMapBox()
         });
@@ -219,10 +162,11 @@ function switchYelp(ind) {
 };
 
 //udpates the placeholder map with new restaurant coordinates (triggered from left/rigth arrows)
-
+function updateMap(lat, lng) {
+    $(".placeholder-map").replaceWith(`<iframe class="placeholder-map" src="https://maps.google.com/maps?q=${lat}, ${lng}&z=15&output=embed" width="360" height="270" frameborder="0" style="border:0"></iframe>`)
+};
 
 /* TO DO */
 
 // Consolidate yelp functions into one
 // Get Coords on page open so were not waiting on yelp functions
-
