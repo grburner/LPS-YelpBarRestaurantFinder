@@ -18,9 +18,9 @@ function yelpDrink() {
         console.log("Latitude: " + position.coords.latitude + " " +
         "Longitude: " + position.coords.longitude);
         
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=bar&latitude=" + latitude + "&longitude=" + longitude
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=bar&latitude=" + latitude + "&longitude=" + longitude;
 
         $.ajax({
             url: queryUrl,
@@ -30,8 +30,8 @@ function yelpDrink() {
             }
         }).then(function(response) {
             console.log(response);
-            clearScreen;
-            initMap;
+            clearScreen();
+            initMap();
         })
       }
 }
@@ -48,7 +48,7 @@ function yelpEat() {
         
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
-        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=restaurant&latitude=" + latitude + "&longitude=" + longitude
+        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=restaurant&latitude=" + latitude + "&longitude=" + longitude;
 
         $.ajax({
             url: queryUrl,
