@@ -128,3 +128,17 @@ body {
 .nav-link:hover::after {
     transform:scaleX(1);
 }
+
+#placeholder-div {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -135px;
+    margin-left: -180px;
+}
+
+.bi {
+    position: fixed;
+    top: 50%;
+};
