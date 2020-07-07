@@ -15,7 +15,7 @@ $(document).on("click", ".home-btns", (event) => {
 });
 
 //triggers left/right arrow functionality
-$("#placeholder-div").on("click", (event) => {
+$("#left-right").on("click", (event) => {
     clickLR(event)
 });
 
@@ -27,6 +27,9 @@ menuIcon.addEventListener('click',() =>{
     navbar.classList.toggle("change");
 });
 
+$("#heart").on("click", () => {
+    storeCurrent(currentInd)
+});
 
 // ---- FUNCTIONS ---- //
 
@@ -129,6 +132,23 @@ function getPosition() {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
     };
+};
+
+function storeCurrent(ind) {
+    let oldItems= JSON.parse(localStorage.getItem('saved-obj')) || []
+
+    let saveObj = {
+        yelpBusiness: currentYelpObj.businesses[ind].name,
+        yelpType: currentYelpObj.businesses[ind].categories[0].title,
+        yelpRating: currentYelpObj.businesses[ind].rating,
+        yelpDist: (currentYelpObj.businesses[ind].distance).toFixed(0),
+        yelpLat: currentYelpObj.businesses[ind].coordinates.latitude,
+        yelpLng: currentYelpObj.businesses[ind].coordinates.longitude
+    }
+
+    oldItems.push(saveObj);
+
+    localStorage.setItem('saved-obj', JSON.stringify(oldItems))
 };
 
 // --- DOM functions --- //
