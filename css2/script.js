@@ -67,13 +67,13 @@ function yelpEat() {
 function initMap() {
     var mapURL = "https://www.google.com/maps/embed/v1/view?zoom=15&center=" + latitude + "%2C" + longitude + "&key=AIzaSyDMTbiZBhMhP9h1zIfI3PWius0RL6YRBSU";
     var mapDiv = $('<iframe>').width("100%").height("100%").attr("src", mapURL);
-    $('.map').append(mapDiv);
+    $('.container').append(mapDiv);
     $('.map-view').html(mapURL);
   }
 
 
 function clearScreen() {
-    $(".home-btns").html("");    
+    $(".home-btns").remove();    
     
 }
 
