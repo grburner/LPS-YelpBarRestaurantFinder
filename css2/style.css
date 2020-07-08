@@ -127,4 +127,22 @@ body {
 .nav-link:hover::before,
 .nav-link:hover::after {
     transform:scaleX(1);
+<<<<<<< HEAD
 }
+=======
+}
+
+#placeholder-div {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -135px;
+    margin-left: -180px;
+}
+
+.bi {
+    position: fixed;
+    top: 50%;
+};
+>>>>>>> f1508211a58c3fa841a30f47bffbdd704b6ed609
