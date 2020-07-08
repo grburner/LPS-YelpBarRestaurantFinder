@@ -127,9 +127,6 @@ body {
 .nav-link:hover::before,
 .nav-link:hover::after {
     transform:scaleX(1);
-<<<<<<< HEAD
-}
-=======
 }
 
 #placeholder-div {
@@ -145,4 +142,3 @@ body {
     position: fixed;
     top: 50%;
 };
->>>>>>> f1508211a58c3fa841a30f47bffbdd704b6ed609
