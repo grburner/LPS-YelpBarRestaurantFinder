@@ -1,62 +1,38 @@
-Body{
-    margin:0;
-    padding:0;
-    background: url(showcase.jpg);
-    background-size: cover;
+* {
+    margin: 0;
+    padding: 0;
 }
-.contact-form{
-    width: 85%;
-    max-width: 600px;
-    background: beige;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    padding: 30px 40px; 
-    box-sizing: border-box;
-    border-radius: 8px;
+
+.home-btns{
     text-align: center;
-    box-shadow: 0 0 20px #000000b3;
-    font-family:"arial", sans-serif;
+    position: absolute;
+    padding:5px; 
+    top:35%;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
     
-}
-    .contact-form h1{
-        margin-top: 0;
-        font-weight: 200;
-    }
 
-.txtb{
-    border:1px solid green;
-    margin: 8px 0;
-    padding: 12px 18px;
-    border-radius: 8px; 
+
 
 }
-.txtb label {
-    display: block;
-    text-align: left;
-    color: black
-    text-transform: uppercase; 
-    font-size: 14px; 
+
+.home-btns a > img {height: 200px;width: 200px;}
+
+
+
+body {
+    font-family: "Dosis", sans-serif;
 }
-.txtb input,.txtb textarea{
+
+.container {
     width: 100%;
-    border: none;
-    background: none;
-    outline: none;
-    font-size: 18px;
-    margin-top: 6px;
-}
-
-.btn{
-    display:inline-block;
-    background: red;
-    padding: 14px 0;
-    color: white;
-    text-transform: uppercase; 
-    cursor: pointer;
-    margin-top: 8px;
-    width:100%;
+    height: 100vh; 
+    background: linear-gradient(rgba(0, 0, 0, .4),
+    rgba(148, 48, 48, .2), rgba(167,67,67,.4)),
+    url(showcase.jpg) center no-repeat; 
+    background-size:cover;
 }
 
 .navbar {
@@ -152,3 +128,17 @@ Body{
 .nav-link:hover::after {
     transform:scaleX(1);
 }
+
+#placeholder-div {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -135px;
+    margin-left: -180px;
+}
+
+.bi {
+    position: fixed;
+    top: 50%;
+};
