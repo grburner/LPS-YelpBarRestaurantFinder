@@ -172,3 +172,5 @@ function updateMap(lat, lng) {
 
 // Consolidate yelp functions into one
 // Get Coords on page open so were not waiting on yelp functions
+
+
