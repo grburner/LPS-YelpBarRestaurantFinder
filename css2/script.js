@@ -50,18 +50,20 @@ function homeBtnClick(event) {
 function toggleMapBox() {
     $(".home-btns").toggle();
     $("#placeholder-div").toggle();
-    switchYelp(0)
-    currentInd = 0
+    currentInd = Math.floor(Math.random() * 50)
+    switchYelp(currentInd)
+    
 };
 
 //event function to handle left and right arrow clicks to scroll through the yelpObj. Populates placeholder divs and updates the placeholder google map
 function clickLR(event) {
     if (event.target.classList.contains("left-a")) {
         if ( currentInd === 0 ) {
-            console.log(currentInd)
-            currentInd = currentYelpObj.businesses.length
-            switchYelp(currentInd)
-            updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
+            return;
+            // console.log(currentInd)
+            // currentInd = currentYelpObj.businesses.length
+            // switchYelp(currentInd)
+            // updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
         } else {
             console.log(currentInd)
             currentInd --
@@ -89,7 +91,7 @@ function clickLR(event) {
 
 //runs yelpAPI by passing in lat & lng with the search term bar. Saves the object to currentYelpObj
 function yelpDrink(latitude, longitude) {
-        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=bar&latitude=" + latitude + "&longitude=" + longitude;
+        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=bar&limit=50&latitude=" + latitude + "&longitude=" + longitude;
 
         $.ajax({
             url: queryUrl,
@@ -105,7 +107,7 @@ function yelpDrink(latitude, longitude) {
 
 //runs yelpAPI by passing in lat & lng with the search term restaurant. Saves the object to currentYelpObj
 function yelpEat(latitude, longitude) {
-        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=restaurant&latitude=" + latitude + "&longitude=" + longitude
+        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=restaurant&limit=50&latitude=" + latitude + "&longitude=" + longitude
 
         $.ajax({
             url: queryUrl,
