@@ -39,10 +39,11 @@ $("#heart").on("click", () => {
 //event function to trigger Drink/Eat based on click event
 function homeBtnClick(event) {
     if ( event.target.alt === "Drink Button" ) {
-        yelpEat(latitude, longitude)
+        yelpDrink(latitude, longitude)
         weather(latitude, longitude)
     } else if ( event.target.alt === "Food Button" ) {
-        yelpDrink(latitude, longitude)
+        yelpEat(latitude, longitude)
+        weather(latitude, longitude)
     } else {
         //exception handler here
     }
