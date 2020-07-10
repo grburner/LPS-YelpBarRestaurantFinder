@@ -7,14 +7,19 @@ let longitude;
 let currentInd;
 var apiKey ="AIzaSyDMTbiZBhMhP9h1zIfI3PWius0RL6YRBSU"
 
+let testMap = function() {
+    initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
+};
+
 // --- EVENT HANDLERS --- //
 //triggers hiding home btns and showing map and yelp info
 $(document).on("click", ".home-btns", (event) => {
     homeBtnClick(event);
+    populateSavedPlaces();
 });
 
 //triggers left/right arrow functionality
-$("#left-right").on("click", (event) => {
+$(".arrow").on("click", (event) => {
     clickLR(event);
 });
 
@@ -56,35 +61,36 @@ function toggleMapBox() {
 
 //event function to handle left and right arrow clicks to scroll through the yelpObj. Populates placeholder divs and updates the placeholder google map
 function clickLR(event) {
-    if (event.target.classList.contains("place-info")) {
+    console.log('arrow works')
+    if (event.target.classList.contains("leftarrow")) {
         console.log(currentYelpObj);
         if ( currentInd === 0 ) {
             console.log(currentInd);
             currentInd = (currentYelpObj.businesses.length) - 1;
             switchYelp(currentInd);
-            updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
+            initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
         } else {
             console.log(currentInd);
             currentInd --;
             switchYelp(currentInd);
-            updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
+            initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
         }
     } else if (event.target.classList.contains("rightarrow")) {
         if ( currentInd === (currentYelpObj.businesses.length) - 1 ) {
             console.log(currentInd);
             currentInd = 0;
             switchYelp(currentInd);
-            updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
+            initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
         } else {
             console.log(currentInd);
-            updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
+            //initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
             currentInd ++;
             switchYelp(currentInd);
-            updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
+            initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
         }
     }
-    //there are some weird index errors we need to fix here but it works fine enough for now
-};
+//     //there are some weird index errors we need to fix here but it works fine enough for now
+ };
 // -- API functions -- //
 function weather(latitude, longitude) {
     var dateTime = moment().format('dddd, MMMM Do YYYY');
@@ -167,19 +173,38 @@ function switchYelp(ind) {
     $("#rating").text(currentYelpObj.businesses[ind].rating)
     $("#distance").text((currentYelpObj.businesses[ind].distance).toFixed(0))
 };
+
 //udpates the placeholder map with new restaurant coordinates (triggered from left/rigth arrows)
-function updateMap(lat, lng) {
-    // $("#map-div").replaceWith(`<iframe id="map-view" src="https://maps.google.com/maps?q=${lat}, ${lng}&z=15&output=embed" width="100%" height="100%" frameborder="0" style="border:0"></iframe>`)
-    $("#map-div").replaceWith(mapDiv)
+// function updateMap() {
+//     //$("#map-div").replaceWith(`<iframe id="map-view" src="https://maps.google.com/maps?q=${lat}, ${lng}&z=15&output=embed" width="100%" height="100%" frameborder="0" style="border:0"></iframe>`)
+//     $("#map-div").replaceWith(mapDiv)
+//     $('#map-view').html(mapURL);
+// };
+
+function initMap(lat, lng) {
+    mapURL = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + lat + "%2C" + lng + "&key=" + apiKey;
+    mapDiv = $('<iframe>').width("100%").height("600px").attr("src", mapURL).attr("id", "map-view");
+    $('#map-view').remove()
+    $('#map-div').prepend(mapDiv);
     $('#map-view').html(mapURL);
 };
 
-function initMap() {
-    mapURL = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + latitude + "%2C" + longitude + "&key=" + apiKey;
-    mapDiv = $('<iframe>').width("100%").height("600px").attr("src", mapURL).attr("id", "map-view");
-    $('#map-div').prepend(mapDiv);
-    $('#map-view').html(mapURL);
-  }
+function populateSavedPlaces() {
+    $("#saved-places").empty()
+    let currentSavedObj = JSON.parse(localStorage.getItem('saved-obj'))
+    console.log('current saved obj ' + JSON.stringify(currentSavedObj))
+    for ( i = 0; i < currentSavedObj.length; i++ ) {
+        let addListItem = $("<li>")
+        let addListItemInner = `<img src="${currentSavedObj[i].yelpImg}" alt="restaurant img">
+        <h3>${currentSavedObj[i].yelpBusiness}</h3>
+        <p>${currentSavedObj[i].yelpType}</p>
+        <p>${currentSavedObj[i].yelpBusiness} is ${currentSavedObj[i].yelpDist/1609} from you!</p> 
+        </li>`
+ //       <img src="${yelpStars(currentSavedObj[i].yelpRating)} alt="yelp star img">
+        addListItem.html(addListItemInner)
+        $("#saved-places").prepend(addListItem)
+    };
+};
 /* TO DO */
 // Consolidate yelp functions into one
 // Get Coords on page open so were not waiting on yelp functions
