@@ -24,21 +24,24 @@
 
 body {
     font-family: "Dosis", sans-serif;
-}
-
-.container {
-    width: 100%;
-    height: 100vh; 
     background: linear-gradient(rgba(0, 0, 0, .4),
     rgba(148, 48, 48, .2), rgba(167,67,67,.4)),
     url(showcase.jpg) center no-repeat; 
     background-size:cover;
+    height: max-content;
+}
+
+
+.container {
+    width: 100%;
+    height: 100%; 
+    
 }
 
 .navbar {
     width: 300px;
     height: 100%;
-    background-color:beige;
+    background-color:rgb(27, 27, 26);
     position: fixed;
     top: 0;
     right:-300px;
@@ -129,22 +132,39 @@ body {
     transform:scaleX(1);
 }
 
-#placeholder-div {
+.placeholder-div {
     display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -135px;
-    margin-left: -180px;
+    /* position: fixed; */
+    /* top: 50%;
+    left: 50%; */
+    /* margin-top: -135px;
+    margin-left: -180px; */
+}
+
+
+#place-info {
+    background-color: white;
+    color: black;
+    width: 33%;
+    height: auto;
+    padding-left: 15px;
+}
+
+#leftarrow {
+    width: 75%;
+}
+
+#rightarrow {
+    width: 75%;
 }
 
 #weather-div {
     display: none;
-    position: fixed;
+    /* position: fixed;
     top: 30%;
-    left:50%;
-    margin-top: -38px;
-    margin-left: -206px;
+    left:50%; */
+    /* margin-top: -38px;
+    margin-left: -206px; */
     border-radius: 25px;
     background: cornflowerblue; 
 }
