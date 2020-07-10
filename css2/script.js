@@ -1,3 +1,4 @@
+
 // ---- VARIABLES ---- //
 
 const menuIcon = document.querySelector('.hamburger-menu');
@@ -12,6 +13,7 @@ let currentInd
 //triggers hiding home btns and showing map and yelp info
 $(document).on("click", ".home-btns", (event) => {
     homeBtnClick(event)
+    console.log(event);
 });
 
 //triggers left/right arrow functionality
@@ -38,9 +40,11 @@ $("#heart").on("click", () => {
 //event function to trigger Drink/Eat based on click event
 function homeBtnClick(event) {
     if ( event.target.alt === "Drink Button" ) {
-        yelpEat(latitude, longitude)
-    } else if ( event.target.alt === "Food Button" ) {
         yelpDrink(latitude, longitude)
+        weather(latitude, longitude)
+    } else if ( event.target.alt === "Food Button" ) {
+        yelpEat(latitude, longitude)
+        weather(latitude, longitude)
     } else {
         //exception handler here
     }
@@ -50,18 +54,16 @@ function homeBtnClick(event) {
 function toggleMapBox() {
     $(".home-btns").toggle();
     $("#placeholder-div").toggle();
-    currentInd = Math.floor(Math.random() * 50)
-    switchYelp(currentInd)
-    
+    switchYelp(0)
+    currentInd = 0
 };
 
 //event function to handle left and right arrow clicks to scroll through the yelpObj. Populates placeholder divs and updates the placeholder google map
 function clickLR(event) {
     if (event.target.classList.contains("left-a")) {
-        console.log(currentYelpObj)
         if ( currentInd === 0 ) {
             console.log(currentInd)
-            currentInd = (currentYelpObj.businesses.length) - 1
+            currentInd = currentYelpObj.businesses.length
             switchYelp(currentInd)
             updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
         } else {
@@ -71,7 +73,7 @@ function clickLR(event) {
             updateMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
         }
     } else if (event.target.classList.contains("right-a")) {
-        if ( currentInd === (currentYelpObj.businesses.length) - 1 ) {
+        if ( currentInd === currentYelpObj.businesses.length ) {
             console.log(currentInd)
             currentInd = 0
             switchYelp(currentInd)
@@ -89,9 +91,31 @@ function clickLR(event) {
 
 // -- API functions -- //
 
+function weather(latitude, longitude) {
+    var dateTime = moment().format('dddd, MMMM Do YYYY');
+    var apiKey = "0ec949b8b13f2ad5d8653cd84a541bde"
+    var queryURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+        var cityName = response.name;
+        var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+        console.log(response);
+
+        $("#weather-div").css("display", "inherit");
+        $("#city-name").text(cityName + " " + "(" + dateTime + ")" + " ").append(img)
+        $("#temp").text("Temperature (F): " + tempF.toFixed(2));
+    
+    })
+}
+
 //runs yelpAPI by passing in lat & lng with the search term bar. Saves the object to currentYelpObj
 function yelpDrink(latitude, longitude) {
-        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=bar&limit=50&latitude=" + latitude + "&longitude=" + longitude;
+        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=bar&latitude=" + latitude + "&longitude=" + longitude;
 
         $.ajax({
             url: queryUrl,
@@ -107,7 +131,7 @@ function yelpDrink(latitude, longitude) {
 
 //runs yelpAPI by passing in lat & lng with the search term restaurant. Saves the object to currentYelpObj
 function yelpEat(latitude, longitude) {
-        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=restaurant&limit=50&latitude=" + latitude + "&longitude=" + longitude
+        var queryUrl = "https://cors-anywhere.herokuapp.com/api.yelp.com/v3/businesses/search?term=restaurant&latitude=" + latitude + "&longitude=" + longitude
 
         $.ajax({
             url: queryUrl,
@@ -163,12 +187,19 @@ function switchYelp(ind) {
     $("#distance").text((currentYelpObj.businesses[ind].distance).toFixed(0))
 };
 
+//initializes map to current location
+function initMap() {
+    var mapURL = "https://www.google.com/maps/embed/v1/view?zoom=15&center=" + latitude + "%2C" + longitude + "&key=AIzaSyDMTbiZBhMhP9h1zIfI3PWius0RL6YRBSU";
+    var mapDiv = $('<iframe>').addClass("map-view").width("100%").height("100%").attr("src", mapURL);
+    $('.left-right').append(mapDiv);
+    $('.map-view').html(mapURL);
+  }
 //udpates the placeholder map with new restaurant coordinates (triggered from left/rigth arrows)
 function updateMap(lat, lng) {
-    $(".placeholder-map").replaceWith(`<iframe class="placeholder-map" src="https://maps.google.com/maps?q=${lat}, ${lng}&z=15&output=embed" width="360" height="270" frameborder="0" style="border:0"></iframe>`)
+    $(".map-view").replaceWith(`<iframe class="map-view" src="https://maps.google.com/maps?q=${lat}, ${lng}&z=15&output=embed" width="100%" height="100%" frameborder="0" style="border:0"></iframe>`)
 };
 
 /* TO DO */
 
 // Consolidate yelp functions into one
-// Get Coords on page open so were not waiting on yelp functions
+// Get Coords on page open so were not waiting on yelp function
