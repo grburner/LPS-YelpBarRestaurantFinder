@@ -1,3 +1,4 @@
+
 // ---- VARIABLES ---- //
 
 const menuIcon = document.querySelector('.hamburger-menu');
@@ -39,6 +40,7 @@ $("#heart").on("click", () => {
 function homeBtnClick(event) {
     if ( event.target.alt === "Drink Button" ) {
         yelpEat(latitude, longitude)
+        weather(latitude, longitude)
     } else if ( event.target.alt === "Food Button" ) {
         yelpDrink(latitude, longitude)
     } else {
@@ -88,6 +90,28 @@ function clickLR(event) {
 };
 
 // -- API functions -- //
+
+function weather(latitude, longitude) {
+    var dateTime = moment().format('dddd, MMMM Do YYYY');
+    var apiKey = "0ec949b8b13f2ad5d8653cd84a541bde"
+    var queryURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
+
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        var tempF = (response.main.temp - 273.15) * 1.80 + 32;
+        var cityName = response.name;
+        var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+        console.log(response);
+
+        $("#weather-div").css("display", "inherit");
+        $("#city-name").text(cityName + " " + "(" + dateTime + ")" + " ").append(img)
+        $("#temp").text("Temperature (F): " + tempF.toFixed(2));
+    
+    })
+}
 
 //runs yelpAPI by passing in lat & lng with the search term bar. Saves the object to currentYelpObj
 function yelpDrink(latitude, longitude) {
