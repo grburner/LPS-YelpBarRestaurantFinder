@@ -59,7 +59,7 @@ body{
 .navbar {
     width: 300px;
     height: 100%;
-    background-color:beige;
+    background-color:green;
     position: fixed;
     top: 0;
     right:-300px;
@@ -70,6 +70,18 @@ body{
     transition: right .8s cubic-bezier(1, 0, 0, 1);
 }
 
+.nav-list {
+    text-align: right;
+}
+.nav-item {
+    list-style: none;
+    margin: 8px;
+}
+.nav-options{
+    font-size: 40px;
+    color: white;
+
+}
 .change {
     right: 0;
 }

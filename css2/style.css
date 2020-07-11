@@ -13,20 +13,15 @@
     bottom:0;
     margin:auto;
     
-
-
-
 }
 
 .home-btns a > img {height: 200px;width: 200px;}
-
-
 
 body {
     font-family: "Dosis", sans-serif;
     background: linear-gradient(rgba(0, 0, 0, .4),
     rgba(148, 48, 48, .2), rgba(167,67,67,.4)),
-    url(showcase.jpg) center no-repeat; 
+    url(showcase.jpg);
     background-size:cover;
     height: max-content;
 }
@@ -41,7 +36,7 @@ body {
 .navbar {
     width: 300px;
     height: 100%;
-    background-color:rgb(27, 27, 26);
+    background-color:green;
     position: fixed;
     top: 0;
     right:-300px;
@@ -84,15 +79,19 @@ body {
 
 .change .line-3 {
     transform:rotateZ(405deg) translate(-8px, -6px);
-}
 
+}
 .nav-list {
     text-align: right;
+    
 }
 
 .nav-item {
     list-style: none;
-    margin: 25px;
+    margin: 8px;
+}
+.nav-options{
+    font-size: 40px;
 }
 
 .nav-ink {
