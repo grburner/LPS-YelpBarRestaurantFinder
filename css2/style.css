@@ -145,15 +145,19 @@ html {
 }
 
 #map-div {
-    padding-top: 10%;
+    padding-top: 3%;
 }
 
 #place-info {
-    background-color: white;
+    background-color: rgba(238, 238, 238, 0.7);
     color: black;
-    width: 33%;
+    /* width: 33%; */
     height: auto;
     padding-left: 15px;
+}
+
+#place-info:hover {
+    background-color: rgb(238, 238, 238);
 }
 
 .leftarrow {
@@ -162,6 +166,23 @@ html {
 
 .rightarrow {
     width: 75%;
+    float: right;
+}
+
+.arrow, #heart:hover {
+    cursor: pointer;
+}
+
+#heart {
+    padding-top: 10px;
+}
+
+#like-button {
+    width: 100%;
+}
+
+p#distance {
+    padding-bottom: 5px;
 }
 
 #weather-div {
@@ -176,8 +197,17 @@ html {
 }
 
 
-#city-name, #temp {
-    padding: 10px;
+#city-name, #date, #temp {
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+#city-name {
+    padding-top: 5px;
+}
+
+#temp {
+    padding-bottom: 10px;
 }
 
 .bi {
@@ -205,14 +235,14 @@ div#saved-places > h3 {
 div#saved-places > li p {
     font: 200 12px/1.5 Georgia, Times New Roman, serif;
   }
-   
+  
 .saved-places-list-item:hover {
-    background: #eee;
+    background: rgb(238, 238, 238);
     cursor: pointer;
 }
 
 .saved-places-list-item {
     border-bottom: 2px solid darkgrey;
-    background: #eee;
+    background: rgba(238, 238, 238, 0.7);
     padding: 4%;
 }

@@ -102,8 +102,9 @@ function weather(latitude, longitude) {
         var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
         console.log(response);
         $("#weather-div").css("display", "inherit");
-        $("#city-name").text(cityName + " " + "(" + dateTime + ")" + " ").append(img)
-        $("#temp").text("Temperature (F): " + tempF.toFixed(2));
+        $("#city-name").text(cityName + " ").append(img)
+        $("#date").text(dateTime);
+        $("#temp").text("Temperature (F): " + tempF.toFixed(1));
     })
 }
 //runs yelpAPI by passing in lat & lng with the search term bar. Saves the object to currentYelpObj
@@ -172,8 +173,8 @@ function storeCurrent(ind) {
 function switchYelp(ind) {
     $("#business").text(currentYelpObj.businesses[ind].name)
     $("#type").text(currentYelpObj.businesses[ind].categories[0].title)
-    $("#rating").text(currentYelpObj.businesses[ind].rating)
-    $("#distance").text((currentYelpObj.businesses[ind].distance).toFixed(0))
+    $("#rating").text(currentYelpObj.businesses[ind].rating + " out of 5")
+    $("#distance").text((currentYelpObj.businesses[ind].distance/1609).toFixed(2) + " mi away")
 };
 
 //udpates the placeholder map with new restaurant coordinates (triggered from left/rigth arrows)
@@ -184,7 +185,7 @@ function switchYelp(ind) {
 // };
 
 function initMap(lat, lng) {
-    mapURL = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + lat + "%2C" + lng + "&key=" + apiKey;
+    mapURL = "https://maps.google.com/maps?q=" + lat + "," + lng + "&z=17&output=embed&key=" + apiKey;
     mapDiv = $('<iframe>').width("100%").height("600px").attr("src", mapURL).attr("id", "map-view");
     $('#map-view').remove()
     $('#map-div').prepend(mapDiv);
@@ -199,7 +200,7 @@ function populateSavedPlaces() {
     for ( i = 0; i < currentSavedObj.length; i++ ) {
         let addListItem = $("<li>").attr("class", "saved-places-list-item").attr("href", `${currentSavedObj}`)
         let addListItemInner = 
-        `<h3>${currentSavedObj[i].yelpBusiness}</h3>
+        `<h5>${currentSavedObj[i].yelpBusiness}</h5>
         <p>${currentSavedObj[i].yelpType}</p>
         <p>${currentSavedObj[i].yelpBusiness} is ${(currentSavedObj[i].yelpDist/1609).toFixed(2)} miles from you!</p> 
         </li>`
@@ -207,6 +208,24 @@ function populateSavedPlaces() {
         addListItem.html(addListItemInner)
         $("#saved-places-list").prepend(addListItem)
     };
+};
+
+function changeLikeButton() {
+    $("#heart").click(function () {
+        if ($("#like-button").attr("src", "css2/whiteheart.png"))
+            $("#like-button").attr("src", "css2/redheart.png");
+        else
+            $("#like-button").attr("src", "css/whiteheart.png");
+    });
+};
+
+function resetLikeButton() {
+    $(".arrow").click(function() {
+        if ($("#like-button").attr("src", "css2/redheart.png"))
+            $("#like-button").attr("src", "css2/whiteheart.png");
+        else
+        $("#like-button").attr("src", "css/redheart.png");
+    });
 };
 /* TO DO */
 // Consolidate yelp functions into one
