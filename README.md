@@ -7,3 +7,7 @@ The opening screen grabs the user’s current location and asks whether they wou
 
 https://github.com/grburner/sonics-project-1-/projects/1
 https://github.com/grburner/sonics-project-1-
+https://grburner.github.io/sonics-project-1-/
+
+
+![](images/filename css2/Read-me-img.png)
