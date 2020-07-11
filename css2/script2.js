@@ -40,8 +40,7 @@ menuIcon.addEventListener('click',() =>{
     navbar.classList.toggle("change");
 });
 $("#heart").on("click", () => {
-    storeCurrent(currentInd);
-    populateSavedPlaces();
+    checkIfStored(currentInd)
 });
 
 // ---- FUNCTIONS ---- //
@@ -92,7 +91,6 @@ function clickLR(event) {
             initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
         } else {
             console.log(currentInd);
-            //initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
             currentInd ++;
             switchYelp(currentInd);
             initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude);
@@ -246,12 +244,32 @@ function yelpStars(rating) {
     for (const [key, value] of Object.entries(yStars)) {
         starString = rating.toString()
             if (starString === key) {
-                console.log([value][0])
                 return [value][0]
         };
     };
 };
 
+
+//checks if liked item is stored already. if it is then it doesnt add it again
+function checkIfStored(ind) {
+    let includes = false
+    if ( currentSavedObj ) {
+        currentSavedObj.forEach(element => {
+            if ( !includes ) {
+                if ( element.yelpBusiness === currentYelpObj.businesses[ind].name ) {
+                    includes = true
+                };
+            };
+        });
+        if ( !includes ) {
+            storeCurrent(currentInd);
+            populateSavedPlaces();
+        };
+    } else {
+        storeCurrent(currentInd);
+        populateSavedPlaces();  
+    }
+};
 
 /* TO DO */
 // Consolidate yelp functions into one
