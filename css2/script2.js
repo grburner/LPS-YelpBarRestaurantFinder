@@ -6,6 +6,19 @@ let latitude;
 let longitude;
 let currentInd;
 var apiKey ="AIzaSyDMTbiZBhMhP9h1zIfI3PWius0RL6YRBSU"
+let currentSavedObj
+const yStars = {
+    0: 'css2/yelp_stars/small_0.png', 
+    1: 'css2/yelp_stars/small_1_half.png', 
+    1.5: 'css2/yelp_stars/small_1_half.png', 
+    2: 'css2/yelp_stars/small_2.png', 
+    2.5: 'css2/yelp_stars/small_2_half.png',
+    3: 'css2/yelp_stars/small_3.png',
+    3.5: 'css2/yelp_stars/small_3_half.png',
+    4: 'css2/yelp_stars/small_4.png',
+    4.5: 'css2/yelp_stars/small_4_half.png',
+    5: 'css2/yelp_stars/small_5.png'
+};
 
 // --- EVENT HANDLERS --- //
 //triggers hiding home btns and showing map and yelp info
@@ -58,7 +71,6 @@ function toggleMapBox() {
 
 //event function to handle left and right arrow clicks to scroll through the yelpObj. Populates placeholder divs and updates the placeholder google map
 function clickLR(event) {
-    console.log('arrow works')
     if (event.target.classList.contains("leftarrow")) {
         console.log(currentYelpObj);
         if ( currentInd === 0 ) {
@@ -177,13 +189,7 @@ function switchYelp(ind) {
     $("#distance").text((currentYelpObj.businesses[ind].distance/1609).toFixed(2) + " mi away")
 };
 
-//udpates the placeholder map with new restaurant coordinates (triggered from left/rigth arrows)
-// function updateMap() {
-//     //$("#map-div").replaceWith(`<iframe id="map-view" src="https://maps.google.com/maps?q=${lat}, ${lng}&z=15&output=embed" width="100%" height="100%" frameborder="0" style="border:0"></iframe>`)
-//     $("#map-div").replaceWith(mapDiv)
-//     $('#map-view').html(mapURL);
-// };
-
+//renders map
 function initMap(lat, lng) {
     mapURL = "https://maps.google.com/maps?q=" + lat + "," + lng + "&z=17&output=embed&key=" + apiKey;
     mapDiv = $('<iframe>').width("100%").height("600px").attr("src", mapURL).attr("id", "map-view");
@@ -192,34 +198,41 @@ function initMap(lat, lng) {
     $('#map-view').html(mapURL);
 };
 
+//populates saved places from local storage
 function populateSavedPlaces() {
-    $("#saved-places").empty()
-    $("#saved-places").html("<ul id='saved-places-list'><ul>")
-    let currentSavedObj = JSON.parse(localStorage.getItem('saved-obj'))
-    console.log('current saved obj ' + JSON.stringify(currentSavedObj))
-    for ( i = 0; i < currentSavedObj.length; i++ ) {
-        let addListItem = $("<li>").attr("class", "saved-places-list-item").attr("href", `${currentSavedObj}`)
-        let addListItemInner = 
-        `<h5>${currentSavedObj[i].yelpBusiness}</h5>
-        <p>${currentSavedObj[i].yelpType}</p>
-        <p>${currentSavedObj[i].yelpBusiness} is ${(currentSavedObj[i].yelpDist/1609).toFixed(2)} miles from you!</p> 
-        </li>`
-       //<img src="${yelpStars(currentSavedObj[i].yelpRating)} alt="yelp star img">
-        addListItem.html(addListItemInner)
-        $("#saved-places-list").prepend(addListItem)
+    if ( localStorage.getItem('saved-obj') ) {
+        $("#saved-places").empty()
+        $("#saved-places").html("<ul id='saved-places-list'><ul>")
+        currentSavedObj = JSON.parse(localStorage.getItem('saved-obj'))
+        for ( i = 0; i < currentSavedObj.length; i++ ) {
+            yelpStars(currentSavedObj[i].yelpRating)
+            let addListItem = $("<li>").attr("class", "saved-places-list-item").attr("href", `${currentSavedObj}`)
+            let addListItemInner = 
+            `<h5>${currentSavedObj[i].yelpBusiness}</h5>
+            <img src=${yelpStars(currentSavedObj[i].yelpRating)} class="yelp-star-image" alt="yelp star image">
+            <p>${currentSavedObj[i].yelpType}</p>
+            <p>${currentSavedObj[i].yelpBusiness} is ${(currentSavedObj[i].yelpDist/1609).toFixed(2)} miles from you!</p> 
+            </li>`
+        //<img src="${yelpStars(currentSavedObj[i].yelpRating)} alt="yelp star img">
+            addListItem.html(addListItemInner)
+            $("#saved-places-list").prepend(addListItem)
+        };
     };
 };
 
+//toggles like button
 function changeLikeButton() {
+    console.log('change called')
     $("#heart").click(function () {
-        if ($("#like-button").attr("src", "css2/whiteheart.png"))
+        if ( $("#like-button").attr("src", "css2/whiteheart.png") )
             $("#like-button").attr("src", "css2/redheart.png");
         else
             $("#like-button").attr("src", "css/whiteheart.png");
     });
 };
-
+//resets like button
 function resetLikeButton() {
+    console.log('reset called')
     $(".arrow").click(function() {
         if ($("#like-button").attr("src", "css2/redheart.png"))
             $("#like-button").attr("src", "css2/whiteheart.png");
@@ -227,6 +240,19 @@ function resetLikeButton() {
         $("#like-button").attr("src", "css/redheart.png");
     });
 };
+
+//adds yelp stars to the saved items div
+function yelpStars(rating) {
+    for (const [key, value] of Object.entries(yStars)) {
+        starString = rating.toString()
+            if (starString === key) {
+                console.log([value][0])
+                return [value][0]
+        };
+    };
+};
+
+
 /* TO DO */
 // Consolidate yelp functions into one
 // Get Coords on page open so were not waiting on yelp functions
