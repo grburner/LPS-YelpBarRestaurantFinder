@@ -182,7 +182,7 @@ function switchYelp(ind) {
 // };
 
 function initMap(lat, lng) {
-    mapURL = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + lat + "%2C" + lng + "&key=" + apiKey;
+    mapURL = "https://maps.google.com/maps?q=" + lat + "," + lng + "&z=20&output=embed&key=" + apiKey;
     mapDiv = $('<iframe>').width("100%").height("600px").attr("src", mapURL).attr("id", "map-view");
     $('#map-view').remove()
     $('#map-div').prepend(mapDiv);
