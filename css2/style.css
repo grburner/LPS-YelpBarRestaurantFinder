@@ -145,7 +145,7 @@ html {
 }
 
 #map-div {
-    padding-top: 25%;
+    padding-top: 10%;
 }
 
 #place-info {
@@ -184,3 +184,35 @@ html {
     position: fixed;
     top: 50%;
 };
+
+#saved-places {
+    height: 50%;
+}
+
+div#saved-places > ul {
+    margin-top: 5%;
+    list-style-type: none;
+    width: 95%;
+    height: 400px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+   
+div#saved-places > h3 {
+    font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  }
+   
+div#saved-places > li p {
+    font: 200 12px/1.5 Georgia, Times New Roman, serif;
+  }
+   
+.saved-places-list-item:hover {
+    background: #eee;
+    cursor: pointer;
+}
+
+.saved-places-list-item {
+    border-bottom: 2px solid darkgrey;
+    background: #eee;
+    padding: 4%;
+}
