@@ -7,16 +7,12 @@ let longitude;
 let currentInd;
 var apiKey ="AIzaSyDMTbiZBhMhP9h1zIfI3PWius0RL6YRBSU"
 
-let testMap = function() {
-    initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
-};
-
 // --- EVENT HANDLERS --- //
 //triggers hiding home btns and showing map and yelp info
 $(document).on("click", ".home-btns", (event) => {
     homeBtnClick(event);
     populateSavedPlaces();
-});
+})
 
 //triggers left/right arrow functionality
 $(".arrow").on("click", (event) => {
@@ -122,6 +118,8 @@ function yelpDrink(latitude, longitude) {
             currentYelpObj = response;
             initMap();
             toggleMapBox();
+        }).then(() => {
+            initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
         });
 };
 //runs yelpAPI by passing in lat & lng with the search term restaurant. Saves the object to currentYelpObj
@@ -137,6 +135,8 @@ function yelpEat(latitude, longitude) {
             currentYelpObj = response;
             initMap();
             toggleMapBox();
+        }).then(() => {
+            initMap(currentYelpObj.businesses[currentInd].coordinates.latitude, currentYelpObj.businesses[currentInd].coordinates.longitude)
         });
 };
 //gets user coordinates
