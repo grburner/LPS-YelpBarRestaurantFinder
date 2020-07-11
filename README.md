@@ -10,4 +10,4 @@ https://github.com/grburner/sonics-project-1-
 https://grburner.github.io/sonics-project-1-/
 
 
-![](images/filename css2/Read-me-img.png)
+![](css2/filename Read-me-img.png)
