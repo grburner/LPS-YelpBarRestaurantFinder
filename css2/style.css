@@ -172,6 +172,21 @@ body {
     padding: 10px;
 }
 
+#weather-div {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left:50%;
+    margin-top: -38px;
+    margin-left: -206px;
+    border-radius: 25px;
+    background: cornflowerblue; 
+}
+
+#city-name, #temp {
+    padding: 10px;
+}
+
 .bi {
     position: fixed;
     top: 50%;

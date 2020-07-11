@@ -202,4 +202,8 @@ function updateMap(lat, lng) {
 /* TO DO */
 
 // Consolidate yelp functions into one
+<<<<<<< HEAD:css2/scriptOLD.js
 // Get Coords on page open so were not waiting on yelp function
+=======
+// Get Coords on page open so were not waiting on yelp function
+>>>>>>> af925afc2b9f1ae9384fcd85304c41140f076f99:css2/script.js
