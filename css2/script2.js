@@ -28,6 +28,7 @@ menuIcon.addEventListener('click',() =>{
 });
 $("#heart").on("click", () => {
     storeCurrent(currentInd);
+    populateSavedPlaces();
 });
 
 // ---- FUNCTIONS ---- //
@@ -160,7 +161,8 @@ function storeCurrent(ind) {
         yelpRating: currentYelpObj.businesses[ind].rating,
         yelpDist: (currentYelpObj.businesses[ind].distance).toFixed(0),
         yelpLat: currentYelpObj.businesses[ind].coordinates.latitude,
-        yelpLng: currentYelpObj.businesses[ind].coordinates.longitude
+        yelpLng: currentYelpObj.businesses[ind].coordinates.longitude,
+        yelpLink: currentYelpObj.businesses[ind].url
     }
     oldItems.push(saveObj);
     localStorage.setItem('saved-obj', JSON.stringify(oldItems))
@@ -195,9 +197,9 @@ function populateSavedPlaces() {
     let currentSavedObj = JSON.parse(localStorage.getItem('saved-obj'))
     console.log('current saved obj ' + JSON.stringify(currentSavedObj))
     for ( i = 0; i < currentSavedObj.length; i++ ) {
-        let addListItem = $("<li>").attr("class", "saved-places-list-item");
-        let addListItemInner = `
-        <h3>${currentSavedObj[i].yelpBusiness}</h3>
+        let addListItem = $("<li>").attr("class", "saved-places-list-item").attr("href", `${currentSavedObj}`)
+        let addListItemInner = 
+        `<h3>${currentSavedObj[i].yelpBusiness}</h3>
         <p>${currentSavedObj[i].yelpType}</p>
         <p>${currentSavedObj[i].yelpBusiness} is ${(currentSavedObj[i].yelpDist/1609).toFixed(2)} miles from you!</p> 
         </li>`
