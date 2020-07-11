@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    
 }
 
 .home-btns{
@@ -12,14 +13,9 @@
     right:0;
     bottom:0;
     margin:auto;
-    
-
-
-
 }
 
 .home-btns a > img {height: 200px;width: 200px;}
-
 
 
 body {
@@ -28,7 +24,13 @@ body {
     rgba(148, 48, 48, .2), rgba(167,67,67,.4)),
     url(showcase.jpg) center no-repeat; 
     background-size:cover;
-    height: max-content;
+    height: 100%;
+    margin: 0;
+}
+
+html {
+    margin: 0;
+    height: 100%;
 }
 
 
@@ -139,8 +141,12 @@ body {
     left: 50%; */
     /* margin-top: -135px;
     margin-left: -180px; */
+    
 }
 
+#map-div {
+    padding-top: 25%;
+}
 
 #place-info {
     background-color: white;
@@ -150,11 +156,11 @@ body {
     padding-left: 15px;
 }
 
-#leftarrow {
+.leftarrow {
     width: 75%;
 }
 
-#rightarrow {
+.rightarrow {
     width: 75%;
 }
 
@@ -168,6 +174,7 @@ body {
     border-radius: 25px;
     background: cornflowerblue; 
 }
+
 
 #city-name, #temp {
     padding: 10px;
