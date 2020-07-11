@@ -11,6 +11,7 @@
     right:0;
     bottom:0;
     margin:auto;
+    z-index: 1;
 }
 .home-btns a > img {height: 200px;width: 200px;}
 body {
@@ -42,6 +43,7 @@ html {
     align-items: center;
     border-radius: 20% 0 0 60%;
     transition: right .8s cubic-bezier(1, 0, 0, 1);
+    z-index: 2;
 }
 .nav-list {
     text-align: auto;
