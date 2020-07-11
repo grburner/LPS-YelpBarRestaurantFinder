@@ -191,18 +191,19 @@ function initMap(lat, lng) {
 
 function populateSavedPlaces() {
     $("#saved-places").empty()
+    $("#saved-places").html("<ul id='saved-places-list'><ul>")
     let currentSavedObj = JSON.parse(localStorage.getItem('saved-obj'))
     console.log('current saved obj ' + JSON.stringify(currentSavedObj))
     for ( i = 0; i < currentSavedObj.length; i++ ) {
-        let addListItem = $("<li>")
-        let addListItemInner = `<img src="${currentSavedObj[i].yelpImg}" alt="restaurant img">
+        let addListItem = $("<li>").attr("class", "saved-places-list-item");
+        let addListItemInner = `
         <h3>${currentSavedObj[i].yelpBusiness}</h3>
         <p>${currentSavedObj[i].yelpType}</p>
-        <p>${currentSavedObj[i].yelpBusiness} is ${currentSavedObj[i].yelpDist/1609} from you!</p> 
+        <p>${currentSavedObj[i].yelpBusiness} is ${(currentSavedObj[i].yelpDist/1609).toFixed(2)} miles from you!</p> 
         </li>`
- //       <img src="${yelpStars(currentSavedObj[i].yelpRating)} alt="yelp star img">
+       //<img src="${yelpStars(currentSavedObj[i].yelpRating)} alt="yelp star img">
         addListItem.html(addListItemInner)
-        $("#saved-places").prepend(addListItem)
+        $("#saved-places-list").prepend(addListItem)
     };
 };
 /* TO DO */
